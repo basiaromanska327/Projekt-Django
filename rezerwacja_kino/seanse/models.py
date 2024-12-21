@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Sum
 from management.models import User
 
 class Film(models.Model):
@@ -26,9 +27,19 @@ class Seans(models.Model):
     termin = models.DateTimeField(verbose_name="Termin")
     sala = models.ForeignKey(Sala, on_delete=models.PROTECT)
 
+    def liczba_wolnych_miejsc(self):
+        return self.sala.liczba_miejsc - (self.rezerwacje.aggregate(zarezerwowane=Sum("liczba_biletow"))['zarezerwowane'] or 0)
+
     class Meta:
         verbose_name_plural = "Seanse"
 
     def __str__(self):
         return f"Seans {self.film.nazwa} {self.termin.strftime("%Y-%m-%d %H:%M")} Sala {self.sala.nazwa}"
     
+class Rezerwacja(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    seans = models.ForeignKey(Seans, on_delete=models.PROTECT, related_name="rezerwacje")
+    liczba_biletow = models.IntegerField(verbose_name="Liczba biletów")
+
+    class Meta:
+        verbose_name_plural = "Rezerwacje"
