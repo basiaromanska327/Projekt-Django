@@ -1,0 +1,13 @@
+<h1>Lista seansow</h1>
+<ul> 
+    <!-- Iterate over object_list -->
+    {% for object in object_list %} 
+    <!-- Display Objects -->
+    <li><a href="{{object.id}}">{{ object.termin }} "{{ object.film.nazwa }}" Sala: {{object.sala.nazwa}}</a></li> 
+   
+    <hr/> 
+    <!-- If object_list is empty  -->
+    {% empty %} 
+    <li>Nie ma seansow</li> 
+    {% endfor %} 
+</ul>
