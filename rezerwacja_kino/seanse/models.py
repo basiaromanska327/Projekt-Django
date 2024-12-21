@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models import Sum
+from django.core.validators import MinValueValidator
 from management.models import User
 
 class Film(models.Model):
@@ -39,7 +40,7 @@ class Seans(models.Model):
 class Rezerwacja(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     seans = models.ForeignKey(Seans, on_delete=models.PROTECT, related_name="rezerwacje")
-    liczba_biletow = models.IntegerField(verbose_name="Liczba biletów")
+    liczba_biletow = models.PositiveIntegerField(verbose_name="Liczba biletów", validators=[MinValueValidator(1)])
 
     class Meta:
         verbose_name_plural = "Rezerwacje"
