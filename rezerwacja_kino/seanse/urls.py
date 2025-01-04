@@ -17,7 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
+from seanse.views import SeanseListView, SeanseDetailView
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('seanse/', include('seanse.urls'))
+    path("seanse/", SeanseListView.as_view(), name="lista-seansow"),
+    path("seanse/<int:pk>/", SeanseDetailView.as_view(), name="szczegoly-seansow"),
+
 ]
