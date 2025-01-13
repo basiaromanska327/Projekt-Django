@@ -1,3 +1,8 @@
-<h1>{{ object.termin }} "{{ object.film.nazwa }}" Sala: {{object.sala.nazwa}}</h1>
+<h1>{{ object.seans }} "{{ object.liczba_biletow }}"</h1>
 <p>Liczba wolnych miejsc: {{object.liczba_wolnych_miejsc}}</p>
 
+<form method="POST" action="{% url 'rezerwuj' object.id %}">
+    {% csrf_token %}
+    <input type="number" name="bilety" value="2" id="bilety" />
+    <input type="submit" value="Rezerwuj" />
+</form>

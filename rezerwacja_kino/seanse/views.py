@@ -15,14 +15,15 @@ class RezerwacjaDetailView(DetailView):
     model = Rezerwacja
     template_name = "szczegoly_rezerwacji.html"
     
-def create_reservation(request, pk, bilety):
-    if request.action =="POST" and request.user.is_authenticated:
+def create_reservation(request, pk):
+    if request.method == "POST" and request.user.is_authenticated:
         seans = get_object_or_404(Seans, pk=pk)
+        bilety = int(request.POST.get('bilety'))
         if seans.liczba_wolnych_miejsc() >= bilety:
-            rezerwacja = Rezerwacja.object.create(
+            rezerwacja = Rezerwacja.objects.create(
                 user=request.user,
                 seans=seans,
                 liczba_biletow=bilety
             )
-            return redirect(f"rezerwacje/{rezerwacja.id}")
+            return redirect(f"/seanse/rezerwacje/{rezerwacja.id}")
         return redirect(f"seans/{seans.id}")
