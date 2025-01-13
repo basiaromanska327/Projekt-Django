@@ -2,10 +2,16 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from .models import Seans, Rezerwacja
 from django.shortcuts import get_object_or_404, redirect
+from django.db.models import Sum, F
 
 class SeanseListView(ListView):
     model = Seans
     template_name = "lista_seansow.html"
+
+    def get_queryset(self):
+        qs = Seans.objects.annotate(zarezerwowane_miejsca=Sum("rezerwacje__liczba_biletow")).filter(sala__liczba_miejsc__gt=F("zarezerwowane_miejsca"))
+        return qs
+    
 
 class SeanseDetailView(DetailView):
     model = Seans
