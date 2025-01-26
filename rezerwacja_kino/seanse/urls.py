@@ -17,10 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
-from seanse.views import SeanseListView, SeanseDetailView
+from seanse.views import SeanseListView, SeanseDetailView, RezerwacjaDetailView, create_reservation
 
 urlpatterns = [
     path("seanse/", SeanseListView.as_view(), name="lista-seansow"),
     path("seanse/<int:pk>/", SeanseDetailView.as_view(), name="szczegoly-seansow"),
-
+    path("seanse/<int:pk>/rezerwuj", create_reservation, name="rezerwuj"),
+    path("rezerwacje/<int:pk>",RezerwacjaDetailView.as_view(), name="szczegoly-rezerwacji"),
 ]

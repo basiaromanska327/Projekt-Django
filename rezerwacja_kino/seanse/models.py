@@ -37,6 +37,7 @@ class Seans(models.Model):
     def __str__(self):
         return f"Seans {self.film.nazwa} {self.termin.strftime("%Y-%m-%d %H:%M")} Sala {self.sala.nazwa}"
     
+    
 class Rezerwacja(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     seans = models.ForeignKey(Seans, on_delete=models.PROTECT, related_name="rezerwacje")
@@ -44,3 +45,6 @@ class Rezerwacja(models.Model):
 
     class Meta:
         verbose_name_plural = "Rezerwacje"
+
+    def __str__(self):
+        return f"Rezerwacja {self.id} seans {self.seans} liczba biletów {self.liczba_biletow}"
