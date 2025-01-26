@@ -1,9 +1,17 @@
 <h1>Lista seansow</h1>
-<ul> 
+<form method="get" action="." >
+    <select name="film">
+         {% for f in object_list.filmy %}
+          <option value="{{ f.id }}">{{ f.nazwa }}</option>
+         {% endfor %}
+    </select>
+    <button type="submit">Szukaj</button>
+</form>
+ <ul> 
     <!-- Iterate over object_list -->
-    {% for object in object_list %} 
+    {% for seans in object_list.seanse %} 
     <!-- Display Objects -->
-    <li><a href="{{object.id}}">{{ object.termin }} "{{ object.film.nazwa }}" Sala: {{object.sala.nazwa}}</a></li> 
+    <li><a href="{{seans.id}}">{{ seans.termin }} "{{ seans.film.nazwa }}" Sala: {{seans.sala.nazwa}}</a></li> 
    
     <hr/> 
     <!-- If object_list is empty  -->

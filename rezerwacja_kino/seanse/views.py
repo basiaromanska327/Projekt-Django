@@ -1,6 +1,6 @@
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from .models import Seans, Rezerwacja
+from .models import Seans, Rezerwacja, Film
 from django.shortcuts import get_object_or_404, redirect
 from django.db.models import Sum, F
 
@@ -9,7 +9,16 @@ class SeanseListView(ListView):
     template_name = "lista_seansow.html"
 
     def get_queryset(self):
-        qs = Seans.objects.annotate(zarezerwowane_miejsca=Sum("rezerwacje__liczba_biletow")).filter(sala__liczba_miejsc__gt=F("zarezerwowane_miejsca"))
+        
+        seanse_z_wolnymi_miejscami = Seans.objects.annotate(zarezerwowane_miejsca=Sum("rezerwacje__liczba_biletow")).filter(sala__liczba_miejsc__gt=F("zarezerwowane_miejsca"))
+        film_id = self.request.GET.get("film")
+        if film_id:
+            seanse_z_wolnymi_miejscami = seanse_z_wolnymi_miejscami.filter(film__id=film_id)
+
+        qs = {
+            "seanse": seanse_z_wolnymi_miejscami,
+            "filmy": Film.objects.all()
+        }
         return qs
     
 
