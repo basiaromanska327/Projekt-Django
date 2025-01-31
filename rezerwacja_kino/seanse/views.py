@@ -1,7 +1,7 @@
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from .models import Seans, Rezerwacja, Film
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.db.models import Sum, F
 
 class SeanseListView(ListView):
@@ -21,7 +21,6 @@ class SeanseListView(ListView):
         }
         return qs
     
-
 class SeanseDetailView(DetailView):
     model = Seans
     template_name = "szczegoly_seansow.html"
@@ -42,3 +41,9 @@ def create_reservation(request, pk):
             )
             return redirect(f"/seanse/rezerwacje/{rezerwacja.id}")
         return redirect(f"seans/{seans.id}")
+
+def rezerwacje_view(request):
+    return render(request, "szczegoly_rezerwacji.html")
+
+def lista_seansow_view(request):
+    return render(request, "lista_seansow.html")
