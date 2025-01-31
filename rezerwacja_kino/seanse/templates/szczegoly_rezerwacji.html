@@ -4,3 +4,7 @@
     <li>Seans: {{object.seans}}</li>
     <li>Liczba biletow: {{object.liczba_biletow}}</li>
 </ul>
+
+<form action="{% url 'lista-seansow' %}" method="get">
+    <button type="submit">Wróc do listy seansów</button>
+</form>
