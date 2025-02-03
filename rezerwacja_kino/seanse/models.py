@@ -48,3 +48,4 @@ class Rezerwacja(models.Model):
 
     def __str__(self):
         return f"Rezerwacja {self.id} seans {self.seans} liczba biletów {self.liczba_biletow}"
+    

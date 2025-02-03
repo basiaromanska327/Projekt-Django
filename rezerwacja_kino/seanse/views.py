@@ -3,6 +3,9 @@ from django.views.generic.detail import DetailView
 from .models import Seans, Rezerwacja, Film
 from django.shortcuts import get_object_or_404, redirect, render
 from django.db.models import Sum, F
+from django.contrib.auth import login
+from .forms import RejestracjaForm
+
 
 class SeanseListView(ListView):
     model = Seans
@@ -47,3 +50,14 @@ def rezerwacje_view(request):
 
 def lista_seansow_view(request):
     return render(request, "lista_seansow.html")
+
+def rejestracja(request):
+    if request.method == "POST":
+        form = RejestracjaForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect("lista-seansow")
+    else:
+        form = RejestracjaForm()
+    return render(request, 'rejestracja.html', {'form': form})
