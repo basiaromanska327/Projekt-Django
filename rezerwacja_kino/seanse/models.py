@@ -5,7 +5,7 @@ from management.models import User
 
 class Film(models.Model):
     nazwa = models.CharField(verbose_name="Tytul filmu", max_length=64)
-    plakat = models.ImageField(verbose_name="Plakat")
+    plakat = models.ImageField(upload_to="plakaty/")
 
     class Meta:
         verbose_name_plural = "Filmy"
@@ -48,3 +48,4 @@ class Rezerwacja(models.Model):
 
     def __str__(self):
         return f"Rezerwacja {self.id} seans {self.seans} liczba biletów {self.liczba_biletow}"
+    

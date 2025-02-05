@@ -6,16 +6,18 @@
          {% endfor %}
     </select>
     <button type="submit">Szukaj</button>
+    <a href="{% url 'lista-seansow' %}" class="btn btn-secondary">Resetuj</a>
 </form>
  <ul> 
     <!-- Iterate over object_list -->
     {% for seans in object_list.seanse %} 
     <!-- Display Objects -->
-    <li><a href="{{seans.id}}">{{ seans.termin }} "{{ seans.film.nazwa }}" Sala: {{seans.sala.nazwa}}</a></li> 
-   
-    <hr/> 
+    <li><a href="{{seans.id}}">{{ seans.termin }} </br> "{{ seans.film.nazwa }}" </br> Sala: {{seans.sala.nazwa}}</a></li>
+    <img src="{{ seans.film.plakat.url }}" alt="{{ seans.film.nazwa }} plakat">  
+     <hr/> 
     <!-- If object_list is empty  -->
     {% empty %} 
     <li>Nie ma seansow</li> 
     {% endfor %} 
 </ul>
+
