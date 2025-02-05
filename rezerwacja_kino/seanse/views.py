@@ -11,6 +11,7 @@ class SeanseListView(ListView):
     model = Seans
     template_name = "lista_seansow.html"
 
+
     def get_queryset(self):
         
         seanse_z_wolnymi_miejscami = Seans.objects.annotate(zarezerwowane_miejsca=Sum("rezerwacje__liczba_biletow")).filter(sala__liczba_miejsc__gt=F("zarezerwowane_miejsca"))
@@ -23,6 +24,10 @@ class SeanseListView(ListView):
             "filmy": Film.objects.all()
         }
         return qs
+    
+    def lista_seansow(request, film_id):
+        film = get_object_or_404(Film, id=film_id)
+        return render(request, "lista_seansow.html", {"film": film})
     
 class SeanseDetailView(DetailView):
     model = Seans
