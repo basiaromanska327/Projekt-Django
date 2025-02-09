@@ -16,7 +16,10 @@ Project is created with:
 ## Setup
 
 ```
-$ git clone https://github.com/basiaromanska327/Projekt-Django.git
 $ pip install -r requirements.txt
 $ Python manage.py runserver
 ```
+
+## Author
+Barbara Romańska-Ziółkowska
+contact: basiaromanska327@gmail.com
